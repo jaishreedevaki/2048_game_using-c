@@ -15,31 +15,31 @@ int zero_present=1;
 int same_neighbour=0;
 void default_grid()
 {
-	game_grid[1][1]=8;
+    game_grid[1][1]=8;
     game_grid[3][2]=32;
     game_grid[2][3]=2;
 }
 unsigned int random_generator()
 {   
-	seed=(multiplier*seed+increment)%modulo;
-	return seed;		
+    seed=(multiplier*seed+increment)%modulo;
+    return seed;		
 }
 int random_filling(int start,int end,int add_value)
 {
-	int row_index;
-	int col_index;
+    int row_index;
+    int col_index;
     for(row_index=start;row_index<end;row_index++)
-	{
+    {
 		for(col_index=start;col_index<end;col_index++)
 		{
 			if(game_grid[row_index][col_index]==0)
 			{
-			  game_grid[row_index][col_index]=add_value;
-			  return 1;	
+			   game_grid[row_index][col_index]=add_value;
+			   return 1;	
 			}
 		}
-	}
-	return 0;
+    }
+    return 0;
 }
 int  random_value()
 {
@@ -51,20 +51,20 @@ int  random_value()
 	}
 	else 
 	{
-		add_value=4;
+	   add_value=4;
 	}
 	int random_index=value%grid_size;
-    if(random_filling(0,random_index,add_value))
-    {
-    	return 0;
+        if(random_filling(0,random_index,add_value))
+        {
+    	   return 0;
 	}
 	else if(random_filling(random_index,grid_size,add_value))
 	{
-		return 0;
+	   return 0;
 	}
 	else 
 	{
-		random_value();
+	   random_value();
 	}
 	
 }
@@ -76,7 +76,7 @@ void grid_display()
 	printf("\n\n\n\n\n");
 	for(index_row=0;index_row<grid_size;index_row++)
 	{ 
-	   printf("\t\t\t\t");
+	  printf("\t\t\t\t");
 	  for(pat_index=0;pat_index<29;pat_index++)
 	  {
 	  	printf("_");
@@ -84,26 +84,26 @@ void grid_display()
 	  printf("\n\n");
 	  for(index_col=0;index_col<grid_size;index_col++)
 	  { 
-	    if(index_col==0)
-	    {
-	    	printf("\t\t\t\t");
-		}
-	  	if(game_grid[index_row][index_col]!=0)
+	      if(index_col==0)
+	       {
+	          printf("\t\t\t\t");
+	       }
+	       if(game_grid[index_row][index_col]!=0)
 		{
 		   printf("| %4d ",game_grid[index_row][index_col]);
-	    }
-	    else 
-	    {
-	       printf("|      ");	
+	        }
+	       else 
+	        {
+	           printf("|      ");	
 		}
 	  }	
 	   printf("|\n");
 	   if(index_row==grid_size-1)
-       {  
-          printf("\t\t\t\t");
+           {  
+              printf("\t\t\t\t");
 	      for(pat_index=0;pat_index<29;pat_index++)
 	       {
-	  	      printf("_");
+	  	   printf("_");
 	       } 
 	   }
 	}
@@ -112,24 +112,24 @@ void grid_display()
 void alter_if_zerorow(int neighbour_row,int current_row,int col_index)
 {
     game_grid[neighbour_row][col_index]=game_grid[current_row][col_index];
-	game_grid[current_row][col_index]=0;		
+    game_grid[current_row][col_index]=0;		
 }
 void alter_if_zerocol(int neighbour_col,int current_col,int row_index)
 {
     game_grid[row_index][neighbour_col]=game_grid[row_index][current_col];
-	game_grid[row_index][current_col]=0;		
+    game_grid[row_index][current_col]=0;		
 }
 void alter_if_samerow(int neighbour_row,int current_row,int col_index)
 {
-	game_grid[neighbour_row][col_index]=2*game_grid[neighbour_row][col_index];
-	score+=game_grid[neighbour_row][col_index];
-	game_grid[current_row][col_index]=0;	
+    game_grid[neighbour_row][col_index]=2*game_grid[neighbour_row][col_index];
+    score+=game_grid[neighbour_row][col_index];
+    game_grid[current_row][col_index]=0;	
 }
 void alter_if_samecol(int neighbour_col,int current_col,int row_index)
 {
-	game_grid[row_index][neighbour_col]=2*game_grid[row_index][neighbour_col];
-	score+=game_grid[row_index][neighbour_col];
-	game_grid[row_index][current_col]=0;	
+    game_grid[row_index][neighbour_col]=2*game_grid[row_index][neighbour_col];
+    score+=game_grid[row_index][neighbour_col];
+    game_grid[row_index][current_col]=0;	
 }
 void up()
 {
@@ -152,12 +152,12 @@ void up()
 					}
 					else if(game_grid[dum_index-1][col_index]==game_grid[dum_index][col_index])
 					{
-						alter_if_samerow(dum_index-1,dum_index,col_index);
-						dum_index--;
+					    alter_if_samerow(dum_index-1,dum_index,col_index);
+					    dum_index--;
 					}
 					else
 					{
-						break;
+					    break;
 					}
 				}
 			}
@@ -185,12 +185,12 @@ void down()
 					}
 					else if(game_grid[dum_index+1][col_index]==game_grid[dum_index][col_index])
 					{
-						alter_if_samerow(dum_index+1,dum_index,col_index);
+					    alter_if_samerow(dum_index+1,dum_index,col_index);
 					    dum_index++;
 					}
 					else
 					{
-						break;
+					    break;
 					}
 				}
 			}
@@ -218,12 +218,12 @@ void left()
 					}
 					else if(game_grid[row_index][dum_index-1]==game_grid[row_index][dum_index])
 					{
-						alter_if_samecol(dum_index-1,dum_index,row_index);
+					    alter_if_samecol(dum_index-1,dum_index,row_index);
 					    dum_index--;
 					}
 					else
 					{
-						break;
+					     break;
 					}
 			   }	
 			}
@@ -251,12 +251,12 @@ void right()
 					}
 					else if(game_grid[row_index][dum_index+1]==game_grid[row_index][dum_index])
 					{
-						alter_if_samecol(dum_index+1,dum_index,row_index);
+					    alter_if_samecol(dum_index+1,dum_index,row_index);
 					    dum_index++;
 					}
 					else
 					{
-						break;
+					    break;
 					}
 			   }	
 			}
@@ -273,7 +273,7 @@ void get_input(int * valid_key_ptr)
        {
          case 72:
    	    	up();
-   		    break;
+   		break;
          case 77:
    	    	right();
    	    	break;
@@ -281,8 +281,8 @@ void get_input(int * valid_key_ptr)
 	        down();
 	    	break;
 	     case 75:
-	       left();
-		    break;	
+	        left();
+		break;	
        }
    }
    else if(key=='0') 
@@ -345,9 +345,9 @@ void check_move()
 				break;				
 			}				
 		}
-	    if(same_neighbour==1)
+	       if(same_neighbour==1)
         	{
-		        break;
+		      break;
         	}	
 	}
 }
@@ -384,28 +384,28 @@ int main()
       grid_display();
       while(!game_over)
       {
-   	     get_input(&valid_key);
-   	     if(!valid_key)
+   	  get_input(&valid_key);
+   	  if(!valid_key)
+   	  {
+   	     check_zero();
+   	     if(zero_present)
    	     {
-   	     	check_zero();
-   	     	if(zero_present)
-   	     	{
-   	     	   random_value();	
-			}
-			else
-			{
-			   check_move();
-			}	
-            system("cls");
-            grid_display();	 
-	        if(!zero_present&&!same_neighbour) 
-			{
-			    game_over=1;	
-			} 
-			if(!zero_present&&same_neighbour==1)
-			{
-				printf("\n\nHINT:\nYou still have a chance to win.\n\n");
-			} 
+   	     	random_value();	
+	     }
+	     else
+	     {
+	        check_move();
+	     }	
+             system("cls");
+             grid_display();	 
+	     if(!zero_present&&!same_neighbour) 
+	     {
+		game_over=1;	
+	     } 
+	     if(!zero_present&&same_neighbour==1)
+	     {
+		printf("\n\nHINT:\nYou still have a chance to win.\n\n");
+	     } 
          }
          else
          {  
@@ -413,7 +413,7 @@ int main()
             grid_display(); 
             printf("\n\nWARNING:\n\nPlease enter a valid key");
             valid_key=0;
-		 }       
+	}       
       }
       system("cls");      
       printf("GAME OVER!!\n\n");
@@ -421,11 +421,11 @@ int main()
       if(flag_2048)
       {
       	printf("YOU WON!!!\n\nTOTAL SCORE : %d",score);
-	  }
-	  else
-	  {
-	  	printf("YOU LOST!!!\n\nTOTAL SCORE : %d",score);
-	  }
+      }
+      else
+      {
+	printf("YOU LOST!!!\n\nTOTAL SCORE : %d",score);
+      }
    }
    return 0;
 }
